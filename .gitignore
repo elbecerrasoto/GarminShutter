@@ -1,0 +1,25 @@
+# Build artefacts
+build/
+*.prg
+*.prg.debug.xml
+*.iq
+android/app/build/
+android/.gradle/
+android/build/
+android/local.properties
+android/.kotlin/
+
+# Locally downloaded SDKs and toolchains (hundreds of MB, reproducible)
+tools/
+
+# Garmin signing key: this is a PRIVATE key. Never commit it.
+*.der
+*.pem
+
+# IDE noise
+.idea/
+*.iml
+.vscode/
+
+repomix.md
+.aider*

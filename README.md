@@ -3,7 +3,7 @@
 Trigger your phone's camera from a Garmin watch.
 
 ```
-  Instinct 2                Samsung S21
+  Garmin watch              Android phone
  ┌──────────┐   BLE    ┌──────────────────────┐
  │  START   │ ───────► │ Garmin Connect       │
  │  button  │          │   Mobile (proxy)     │
@@ -20,7 +20,7 @@ video). Press **UP/DOWN** to switch between PHOTO and VIDEO. The watch shows
 `OK` or `FAILED` so you always know whether the shot happened.
 
 Photos land in `Pictures/RemoteShutter`, videos in `Movies/RemoteShutter`
-(visible in Samsung Gallery / Google Photos).
+(visible in the Android gallery / Google Photos).
 
 ---
 
@@ -42,7 +42,7 @@ Full decision record, including the approaches that were rejected and why:
 
 ## Requirements
 
-* Garmin Instinct 2 (or any watch in `watch/manifest.xml`) — Connect IQ 3.0+
+* A Garmin watch listed in `watch/manifest.xml` — Connect IQ 3.0+
 * Android 12+ phone with **Garmin Connect** installed and the watch paired
 * A Garmin developer account (free) — only needed once, to download the
   Connect IQ device definitions that `monkeyc` uses to compile
@@ -95,10 +95,13 @@ build fails with `Invalid device id specified`.
 The whole camera path can be exercised from the terminal:
 
 ```bash
-adb shell am broadcast -a mx.ebecerra.remoteshutter.TRIGGER --es cmd photo
-adb shell am broadcast -a mx.ebecerra.remoteshutter.TRIGGER --es cmd video
-adb shell am broadcast -a mx.ebecerra.remoteshutter.TRIGGER --es cmd mode:video
+adb shell am broadcast -a com.remoteshutter.TRIGGER --es cmd photo
+adb shell am broadcast -a com.remoteshutter.TRIGGER --es cmd video
+adb shell am broadcast -a com.remoteshutter.TRIGGER --es cmd mode:video
 ```
+
+These broadcasts are only accepted in **debug** builds; release builds
+register the receiver as not-exported so other apps cannot fire the shutter.
 
 If this works but the watch does not, the problem is on the Garmin side (see
 Troubleshooting).

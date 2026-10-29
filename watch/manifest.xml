@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!--Remote Shutter - Connect IQ watch app.The application id below is what ties the watch app to the Androidcompanion app. It MUST stay in sync with CiqLink.APP_UUID in theAndroid sources. It is an arbitrary, unique 32-hex-char string; it isnot registered anywhere because we are not publishing to the store.The product list matches the API-3.4 device group that the Connect IQSDK Manager downloads (all 23 of them). Keeping the list in sync with~/.Garmin/ConnectIQ/Devices/ avoids "Invalid device id found in theapplication manifest" warnings.--><iq:manifest xmlns:iq="http://www.garmin.com/xml/connectiq" version="3">
     <iq:application entry="ShutterApp"
-                    id="a4d0bb18b083423f9197ac0c746a3b65"
+                    id="0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c"
                     launcherIcon="@Drawables.LauncherIcon"
                     minSdkVersion="3.4.0"
                     name="@Strings.AppName"

@@ -2,8 +2,8 @@
 
 ## 1. The problem, restated as constraints
 
-We want: press a button on a Garmin Instinct 2 Solar → Samsung S21 takes a
-photo (or toggles video).
+We want: press a button on a Garmin watch → an Android phone takes a photo
+(or toggles video).
 
 Before choosing anything, three facts about the Connect IQ platform bound the
 solution space. They were verified against the SDK (`tools/connectiq/doc`) and
@@ -27,24 +27,24 @@ must stay installed, running and paired.**
 
 ## 2. Options considered
 
-### A. Steer Samsung's own Camera app (AccessibilityService)
+### A. Steer the OEM camera app (AccessibilityService)
 
-Watch → phone app → AccessibilityService clicks the shutter node in Samsung
+Watch → phone app → AccessibilityService clicks the shutter node in the OEM
 Camera.
 
-* Pro: you keep Samsung's image processing.
-* Con: One UI's view hierarchy changes between versions, the service dies when
-  the screen locks, and Google restricts accessibility APIs used for
-  automation. This is the definition of "it works until it doesn't".
+* Pro: you keep the OEM's image processing.
+* Con: the OEM camera app's view hierarchy changes between versions, the
+  service dies when the screen locks, and Google restricts accessibility APIs
+  used for automation. This is the definition of "it works until it doesn't".
 
 **Rejected.**
 
 ### B. Use `ACTION_IMAGE_CAPTURE` / `INTENT_ACTION_STILL_IMAGE_CAMERA`
 
 * Pro: three lines of code.
-* Con: `ACTION_IMAGE_CAPTURE` ends in a save/discard confirmation on Samsung;
-  `INTENT_ACTION_STILL_IMAGE_CAMERA` only *opens* the camera app and gives no
-  way to press the shutter. Neither can start/stop video.
+* Con: `ACTION_IMAGE_CAPTURE` ends in a save/discard confirmation on most OEM
+  camera apps; `INTENT_ACTION_STILL_IMAGE_CAMERA` only *opens* the camera app
+  and gives no way to press the shutter. Neither can start/stop video.
 
 **Rejected.**
 
@@ -102,14 +102,14 @@ can trust in front of a group of people.
 
 ## 4. Why we own the camera
 
-CameraX, `Pictures/RemoteShutter`, `Movies/RemoteShutter`, no Samsung APIs, no
-root, no accessibility service. Consequences:
+CameraX, `Pictures/RemoteShutter`, `Movies/RemoteShutter`, no OEM-specific
+APIs, no root, no accessibility service. Consequences:
 
-* Works on *any* Android 12+ phone, not just the S21 — nothing in the phone
-  app is Samsung-specific.
+* Works on *any* Android 12+ phone, not just one phone — nothing in the phone
+  app is device-specific.
 * Silent capture (no fake shutter sound), full control of flash, zoom, and
   video.
-* Trade-off: you shoot with our viewfinder, not Samsung's. Acceptable: the
+* Trade-off: you shoot with our viewfinder, not the OEM's. Acceptable: the
   phone is on a tripod and nobody is touching it.
 
 ## 5. Failure modes and how they are handled

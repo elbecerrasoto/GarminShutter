@@ -9,7 +9,7 @@ tells you which half is broken.
 | Thing | Check |
 |---|---|
 | Phone app installed | `adb shell pm list packages \| grep remoteshutter` |
-| Camera permission granted | `adb shell dumpsys package mx.ebecerra.remoteshutter \| grep CAMERA` |
+| Camera permission granted | `adb shell dumpsys package com.remoteshutter \| grep CAMERA` |
 | Garmin Connect installed and paired | `adb shell pm list packages \| grep connectmobile` |
 | Watch app on the watch | `Settings > System > USB Mode > MTP`, then `scripts/install-watch.sh instinct2s` |
 | Watch connected to the phone | open Garmin Connect once; the watch icon must be green |
@@ -19,10 +19,10 @@ tells you which half is broken.
 This exercises camera + storage + threading without the BLE link.
 
 ```bash
-adb shell am start -n mx.ebecerra.remoteshutter/.MainActivity
+adb shell am start -n com.remoteshutter/.MainActivity
 adb logcat -c && adb logcat -s CiqLink &
-adb shell am broadcast -a mx.ebecerra.remoteshutter.TRIGGER --es cmd photo
-adb shell am broadcast -a mx.ebecerra.remoteshutter.TRIGGER --es cmd video
+adb shell am broadcast -a com.remoteshutter.TRIGGER --es cmd photo
+adb shell am broadcast -a com.remoteshutter.TRIGGER --es cmd video
 adb shell ls /sdcard/Pictures/RemoteShutter /sdcard/Movies/RemoteShutter
 ```
 
@@ -39,7 +39,7 @@ Watch: launch **Shutter**, press **START**.
 Phone: `adb logcat -s CiqLink` should print
 
 ```
-from <watch name>: Photo (SUCCESS)
+from <watch id>: Photo (SUCCESS)
 ```
 
 and then, because the camera answers,
